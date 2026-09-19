@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
+import * as THREE from 'three';
 import { Sun } from './Sun';
 import { Planet } from './Planet';
 import { Starfield } from './Starfield';
@@ -27,11 +28,12 @@ export function SolarSystemScene({ isPlaying, speed, selectedPlanet, onSelectPla
 
   return (
     <Canvas
-      camera={{ position: [0, 30, 45], fov: 60, near: 0.1, far: 500 }}
-      style={{ background: '#000010' }}
+      camera={{ position: [0, 35, 60], fov: 55, near: 0.1, far: 500 }}
+      style={{ background: '#000008' }}
       onPointerMissed={() => onSelectPlanet(null)}
+      gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.2 }}
     >
-      <ambientLight intensity={0.08} />
+      <ambientLight intensity={0.05} />
       
       <TimeController isPlaying={isPlaying} speed={speed} elapsedTime={elapsedTime} />
       
@@ -55,9 +57,10 @@ export function SolarSystemScene({ isPlaying, speed, selectedPlanet, onSelectPla
         enablePan={true}
         enableZoom={true}
         enableRotate={true}
-        minDistance={5}
-        maxDistance={100}
+        minDistance={8}
+        maxDistance={120}
         autoRotate={false}
+        maxPolarAngle={Math.PI * 0.85}
       />
     </Canvas>
   );
